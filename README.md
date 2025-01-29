@@ -46,6 +46,42 @@ Voilà un schéma **explicatif** résumant l'architecture N-tiers :
 
 ![Architecture N-tiers](/assets/architecture-n-tier-schema.png)
 
+#### Explication détaillée du schéma
 
+Le schéma illustre le flux de données dans une architecture N-tiers typique :
+
+1. **Côté Client (Front-end)**
+   - Interface utilisateur (UI)
+   - Envoie des requêtes HTTP vers le serveur
+   - Reçoit et affiche les réponses
+
+2. **Côté Serveur (Back-end)**
+   - **Couche de Présentation (Controllers)**
+     - Point d'entrée des requêtes HTTP
+     - Gère les routes de l'API
+     - Utilise des DTOs (Data Transfer Objects) pour :
+       - Transformer les requêtes entrantes en objets métier
+       - Transformer les objets métier en réponses
+   
+   - **Couche Business (Services)**
+     - Contient la logique métier de l'application
+     - Traite les données selon les règles métier
+     - Orchestre les opérations entre présentation et persistance
+     - Ne communique jamais directement avec la BDD
+   
+   - **Couche Persistance (Repository/DAO)**
+     - Gère toutes les interactions avec la base de données
+     - Convertit les objets métier en requêtes SQL
+     - Transforme les résultats SQL en objets métier
+
+3. **Base de Données**
+   - Stockage permanent des données
+   - Communique uniquement avec la couche de persistance
+
+**Points clés :**
+- Chaque couche a une **responsabilité unique** et bien définie
+- La communication se fait uniquement de gauche à droite *(toujours sur le schéma)*
+- Une couche ne peut communiquer qu'avec la couche **directement** en-dessous d'elle
+- Les DTO **protègent** la logique métier en créant une barrière entre l'API et le code métier
 
 
