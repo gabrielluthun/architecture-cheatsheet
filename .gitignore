@@ -21,3 +21,6 @@ out/
 # Temporary files
 tmp/
 temp/
+
+# Cursor rules
+.cursorrules
